@@ -11,18 +11,17 @@ let clearButton = document.querySelector('#clear')
 // organized in the order of the script tags so the countriesAndCodes array is available to this script.
 
 //console.log(countriesAndCodes)  // You don't need to log countriesAndCodes - just proving it is available 
-//let URL = `https://api.worldbank.org/v2/country/${countryCode}?format=json` // world Bank API url
 
-
+let url; // initialize the url
+let randomCountry;// store the random country
+setupGame()// call the function
+ function setupGame(){// TODO when the page loads, select an element at random from the countriesAndCodes array
     let randomIndex = Math.floor(Math.random() * countriesAndCodes.length)// get random index from the array
-    let randomCountry = countriesAndCodes[randomIndex]
-    randomCountryElement.innerHTML = randomCountry.name
+    randomCountry = countriesAndCodes[randomIndex]// get the the country at the random index
+    randomCountryElement.innerHTML = randomCountry.name // read the value in that element and replace it with the ramdom country name
     let countryCode = randomCountry["alpha-2"]
-    let URL = `https://api.worldbank.org/v2/country/${countryCode}?format=json` // world Bank API url
-
-//console.log(URL) // checking if the url is working
-     
-// TODO when the page loads, select an element at random from the countriesAndCodes array
+    URL = `https://api.worldbank.org/v2/country/${countryCode}?format=json` // world Bank API url
+ }  
 
 // TODO add a click event handler to the submitButton.  When the user clicks the button,
 submitButton.addEventListener("click", function(){    
@@ -59,13 +58,11 @@ clearButton.addEventListener('click', function() {
     userAnswerElement.value = ''
     
 })
-// TODO finally, connect the play again button. Clear the user's answer, 
+// TODO finally, connect the play again button. 
 playAgainButton.addEventListener('click', function() {
     resultTextElement.innerHTML = ''
-    userAnswerElement.value = ''
-   let randomIndex = Math.floor(Math.random() * countriesAndCodes.length)// get random index from the array
-   randomCountry = countriesAndCodes[randomIndex]
-   randomCountryElement.innerHTML = randomCountry.name
+    userAnswerElement.value = ''//Clear the user's answer, 
+    setupGame() // select a new random country by call the setGame function
 })
 // TODO finally, connect the play again button. Clear the user's answer, select a new random country, 
 // display the country's name, handle the user's guess. If you didn't use functions in the code you've 
